@@ -34,13 +34,13 @@ function issue {
 
 issue
 
-bashio::log.info "Installing certificate to: /ssl/${DOMAIN}"
+bashio::log.info "Installing certificate to: /ssl/"
 keyArg=$( [[ ${KEY_LENGTH} == ec-* ]] && echo '--ecc' || echo '' )
-[ ! -d "/ssl/${DOMAIN}/" ] && mkdir -p "/ssl/${DOMAIN}/"
+# [ ! -d "/ssl/${DOMAIN}/" ] && mkdir -p "/ssl/${DOMAIN}/"
 acme.sh --install-cert --domain ${DOMAIN} \
     ${keyArg} \
-    --key-file       "/ssl/${DOMAIN}/${KEY_FILE}" \
-    --fullchain-file "/ssl/${DOMAIN}/${FULLCHAIN_FILE}"
+    --key-file       "/ssl/${KEY_FILE}" \
+    --fullchain-file "/ssl/${FULLCHAIN_FILE}"
 
 
 bashio::log.info "All ok, running cron to automatically renew certificate"
